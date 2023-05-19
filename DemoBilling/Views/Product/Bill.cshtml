@@ -1,0 +1,50 @@
+﻿@model DemoBilling.Product
+
+<form method="post" asp-action="Bill">
+    <h2>Billing Page</h2>
+    <br />
+
+    <div>
+        <label for="name">Customer Name</label>
+        <input type="text" name="name" id="name" required />
+    </div>
+    <br />
+    <div id="product-details">
+        <div class="product-item">
+            <label for="productId">Product:</label>
+            <select name="productIds[]" class="product-id">
+                @foreach (var product in ViewBag.Products)
+                {
+                    <option value="@product.Id">@product.Name-@product.Price</option>
+                }
+            </select>
+            <label for="quantity">Quantity</label>
+            <input type="number" name="quantities[]" min="1" />
+        </div>
+        <br />
+    </div>
+    <button type="button" id="add-product" style="background-color:dimgrey">Add</button>
+    <button type="reset" style="background-color:dimgrey">Clear</button>
+    <button type="submit" style="background-color:dimgrey">Submit</button>
+</form>
+
+
+@section script{
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script>
+        $(function() {
+            $('#productId,#quantity').change(function() {
+                updateTotal();
+            });
+            $('#add-product').click(function() {
+                addProduct();
+            });
+        });
+
+updateTotal(){
+    var productId = $('#productId').val();
+
+}
+    </script>
+}
+
