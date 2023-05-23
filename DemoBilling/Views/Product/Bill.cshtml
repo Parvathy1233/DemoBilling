@@ -1,12 +1,14 @@
 ﻿@model DemoBilling.Product
 
 <form method="post" asp-action="Bill">
+    <div asp-validation-summary="All"></div>
     <h2>Billing Page</h2>
     <br />
 
     <div>
         <label for="name">Customer Name</label>
-        <input type="text" name="name" id="name" required />
+        <input type="text" name="name" id="name" required /> 
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <br />
     <div id="product-details">
@@ -27,13 +29,16 @@
     <button type="reset" style="background-color:dimgrey">Clear</button>
     <button type="submit" style="background-color:dimgrey">Submit</button>
 </form>
+@using (Html.BeginForm("ShowBill", "Product"))
+{
+<button type="button" style="background-color:dimgray">GetBill</button>
+}
 
-
-@section script{
+@section scripts{
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script>
         $(function() {
-            $('#productId,#quantity').change(function() {
+            $('#productId, #quantity').change(function() {
                 updateTotal();
             });
             $('#add-product').click(function() {
@@ -41,10 +46,30 @@
             });
         });
 
-updateTotal(){
-    var productId = $('#productId').val();
+        function updateTotal() {
+            var productId = $('#productId').val();
+            var quantity = $('#quantity').val();
+            var price = parseFloat($('#productId option:selected').text().split('-')[1].trim());
+            var total = price * quantity;
+            $('#total').text(total);
+        }
 
-}
+        function addProduct() {
+            var productHtml = '<div class="product-item">' +
+                '<label for="productId">Product</label>' +
+                '<select name="productIds[]" class="product-id">';
+        @foreach (var product in ViewBag.Products)
+        {
+            <text>
+                    productHtml += '<option value="@product.Id">@product.Name-@product.Price</option>';
+            </text>
+        }
+                productHtml += '</select>' +
+                    '<label for="quantity">Quantity</label>' +'    ' +
+                    '<input type="number" name="quantities[]" class="quantity" min="1" />' +
+                    '</div>';
+            $('#product-details').append(productHtml);
+        }
     </script>
 }
 

@@ -19,7 +19,24 @@ public class CustomerModel
         }
         return customer;
     }
-}
+        public int GetCustomerId(string customerName)
+        {
+            var customer = _purchaseContext.customers.FirstOrDefault(c => c.Name == customerName);
+
+            if (customer == null)
+            {
+                // Create a new customer if not found
+                customer = new Customer { Name = customerName };
+                _purchaseContext.customers.Add(customer);
+                _purchaseContext.SaveChanges();
+            }
+            return customer.Id;
+        }
+        internal object GetCustomerId(int userId)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
 
 

@@ -21,6 +21,11 @@ namespace DemoBilling
                    new Product { Id = 4, Name = "Pen", Price = 10 },
                     new Product { Id = 5, Name = "Rice", Price = 350 }
                 );
+            foreach(var foreignKey in modelBuilder.Model.GetEntityTypes()
+                .SelectMany(e => e.GetForeignKeys()))
+            {
+                foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
+            }
         }
 
     }

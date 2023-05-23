@@ -23,5 +23,9 @@
 
             return bill;
         }
+        public Bill GetBillById(int billId)
+        {
+            return _purchaseContext.bills.FirstOrDefault(b => b.Id == billId);
+        }
     }
 }

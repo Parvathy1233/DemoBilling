@@ -4,6 +4,7 @@ using DemoBilling;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DemoBilling.Migrations
 {
     [DbContext(typeof(ProductPurchaseDbContext))]
-    partial class ProductPurchaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230523072229_ForeignKetRestricted")]
+    partial class ForeignKetRestricted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

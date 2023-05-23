@@ -21,6 +21,10 @@
                 BillId = bill.Id
             });
         }
+        public List<PurchaseDetail> GetPurchaseDetailsByBillId(int billId)
+        {
+            return _purchaseContext.purchaseDetails.Where(p => p.BillId == billId).ToList();
+        }
     }
 
 }
