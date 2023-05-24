@@ -55,35 +55,34 @@ namespace DemoBilling.Controllers
         } 
         public IActionResult ShowBill(int billId)
         {
-            var bill = _billModel.GetBillById(billId);
-            //if (bill == null)
-            //{
-            //    return RedirectToAction("BillNotFound");
-            //}
-            var customer = _customerModel.GetCustomerId(bill.UserId);
-            var purchases = _purchaseModel.GetPurchaseDetailsByBillId(billId);
-            var products = new List<Product>();
-            var quantities = new List<int>();
-
-            foreach (var purchase in purchases)
+           var bill=_billModel.GetBillById(billId);
+            if (bill == null)
             {
-                var product = _purchaseContext.Products.FirstOrDefault(p => p.Id == purchase.ProductId);
-                if (product != null)
-                {
-                    products.Add(product);
-                    quantities.Add(purchase.Quantity);
-                }
+                return RedirectToAction("BillNotFound");
             }
-            var viewModel = new BillViewModel
+            if (billId==0 || billId != bill.Id )
+            {
+                return RedirectToAction("BillNotFound");
+            }
+            var purchaseDetails=_purchaseModel.GetPurchaseDetailsByBillId(billId);
+            var customer=_customerModel.GetCustomerById(bill.UserId);
+
+            foreach (var purchaseDetail in purchaseDetails)
+            {
+                purchaseDetail.product = _purchaseContext.Products.FirstOrDefault(p => p.Id == purchaseDetail.ProductId);
+            }
+            double netTotal = purchaseDetails.Sum(p => p.Quantity * p.product.Price);
+            var billViewModel = new BillViewModel
             {
                 BillId = bill.Id,
-                //CustomerName = customer.Name,
-                Products = products,
-                Quantities = quantities,
-                //Total = bill.Total
+                Date = bill.Date,
+                CustomerName = bill.Customer.Name,
+                Total = bill.Total,
+                PurchaseDetails = purchaseDetails,
+                NetTotal = netTotal,
             };
-            return View(viewModel);
-        }
+            return View (billViewModel);
+        } 
         public IActionResult BillNotFound()
         {
             return View();

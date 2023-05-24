@@ -32,10 +32,11 @@ public class CustomerModel
             }
             return customer.Id;
         }
-        internal object GetCustomerId(int userId)
+        public Customer GetCustomerById(int customerId)
         {
-            throw new NotImplementedException();
+            return _purchaseContext.customers.FirstOrDefault(c => c.Id == customerId);
         }
+
     }
 }
 

@@ -29,10 +29,15 @@
     <button type="reset" style="background-color:dimgrey">Clear</button>
     <button type="submit" style="background-color:dimgrey">Submit</button>
 </form>
-@using (Html.BeginForm("ShowBill", "Product"))
-{
-<button type="button" style="background-color:dimgray">GetBill</button>
-}
+<br />
+<form method="get" asp-controller="Product" asp-action="ShowBill">
+    <div>
+        <label for="billId">Bill Number:</label>
+        <input type="number" name="billId" id="billId" required min="1"/>
+    <button type="submit">Show Bill</button>
+    </div>
+</form>
+
 
 @section scripts{
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>

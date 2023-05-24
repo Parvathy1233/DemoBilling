@@ -1,29 +1,37 @@
 ﻿@model BillViewModel
 
 <h2>Bill Details</h2>
-
-<input type="text" value="BillId"/>
-<p><strong>Bill ID:</strong> @Model.BillId</p>
-<p><strong>Customer Name:</strong> @Model.CustomerName</p>
-
+<p>Bill Number: @Model.BillId</p>
+<p>Date: @Model.Date</p>
+<p>Customer Name: @Model.CustomerName</p>
 <table>
     <thead>
         <tr>
             <th>Product</th>
             <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
         </tr>
     </thead>
     <tbody>
-        @for (int i = 0; i < Model.Products.Count; i++)
+        @foreach (var purchaseDetail in Model.PurchaseDetails)
         {
             <tr>
-                <td>@Model.Products[i].Name</td>
-                <td>@Model.Quantities[i]</td>
+                <td>@purchaseDetail.product.Name</td>
+                <td>@purchaseDetail.Quantity</td>
+                <td>@purchaseDetail.product.Price</td>
+                <td>@(purchaseDetail.Quantity*purchaseDetail.product.Price)</td>
             </tr>
         }
     </tbody>
+     <tfoot>
+        <tr>
+            <td colspan="1"></td>
+            <td><b>Net Total</b>: @Model.NetTotal Rs</td>
+        </tr>
+    </tfoot>
 </table>
 
-<p><strong>Total:</strong> @Model.Total</p>
+
 
 
