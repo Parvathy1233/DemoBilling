@@ -25,15 +25,16 @@
         public Bill GetBillById(int billId)
         {
             return _purchaseContext.bills.FirstOrDefault(b => b.Id == billId);
-            var bill = GetBillById(billId);
-            if (bill == null)
-            {
-                return null ;
-            }
-            if (billId == 0 || billId != bill.Id)
-            {
-                return null;
-            }
+            //var bill = GetBillById(billId);
+            //if (bill == null)
+            //{
+            //    throw new Exception("BillId Not Found");
+            //}
+            ////if (billId == 0 || billId != bill.Id)
+            ////{
+            ////    throw new Exception("BillId Not Found");
+            ////}
+            //return bill;
            
            
             

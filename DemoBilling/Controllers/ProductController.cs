@@ -33,30 +33,37 @@ namespace DemoBilling.Controllers
         [HttpPost]
         public IActionResult Bill(BillDemo billDemo)
         {
-            var customer = _customerModel.GetOrCreateCustomer(billDemo.Name);
-            var bill = _billModel.CreateBill(customer);
-
-            for (int i = 0; i < billDemo.ProductIds.Count; i++)
+            if (ModelState.IsValid)
             {
-                var product = _purchaseContext.Products.FirstOrDefault(p => p.Id == billDemo.ProductIds[i]);
-                var quantity = billDemo.Quantities[i];
+                var customer = _customerModel.GetOrCreateCustomer(billDemo.Name);
+                var bill = _billModel.CreateBill(customer);
+                for (int i = 0; i < billDemo.ProductIds.Count; i++)
+                {
+                    var product = _purchaseContext.Products.FirstOrDefault(p => p.Id == billDemo.ProductIds[i]);
+                    var quantity = billDemo.Quantities[i];
 
-                var productTotal = _purchaseModel.CalculateProductTotal(product, quantity);
-                bill.Total += productTotal;
-                _purchaseModel.AddPurchaseDetails(bill, product.Id, quantity);
+                    var productTotal = _purchaseModel.CalculateProductTotal(product, quantity);
+                    bill.Total += productTotal;
+                    _purchaseModel.AddPurchaseDetails(bill, product.Id, quantity);
+                }
+                _purchaseContext.SaveChanges();
             }
-            _purchaseContext.SaveChanges();
             return RedirectToAction("Save");
         }
         public IActionResult Save()
         {
             return View();
-        } 
+        }
         public IActionResult ShowBill(int billId)
         {
             var bill = _billModel.GetBillById(billId);
+            if (bill == null || bill.Id == 0 || billId != bill.Id)
+            {
+                return RedirectToAction("BillNotFound");
+            }
             var purchaseDetails = _purchaseModel.GetPurchaseDetailsByBillId(billId);
             var customer = _customerModel.GetCustomerById(bill.UserId);
+
             foreach (var purchaseDetail in purchaseDetails)
             {
                 purchaseDetail.product = _purchaseContext.Products.FirstOrDefault(p => p.Id == purchaseDetail.ProductId);
