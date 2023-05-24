@@ -7,6 +7,7 @@
         {
             _purchaseContext = purchaseContext;
         }
+
         public double CalculateProductTotal(Product product, int quantity)
         {
             return (double)(quantity * product.Price);
@@ -24,7 +25,7 @@
         public List<PurchaseDetail> GetPurchaseDetailsByBillId(int billId)
         {
             return _purchaseContext.purchaseDetails.Where(p => p.BillId == billId).ToList();
-        }
+        }  
     }
 
 }

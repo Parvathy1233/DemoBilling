@@ -4,6 +4,10 @@ namespace DemoBilling
 {
     public class ProductPurchaseDbContext:DbContext
     {
+        public ProductPurchaseDbContext()
+        {
+        }
+
         public ProductPurchaseDbContext(DbContextOptions<ProductPurchaseDbContext> options) : base(options)
         {
 

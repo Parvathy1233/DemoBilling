@@ -1,37 +1,55 @@
 ﻿@model BillViewModel
+<h1>Bill Details</h1>
+<style>
+        table{
+            width:70%;
+        }
+        th{
+            border:2px solid #004b49;
+             text-align:center;
+    vertical-align:middle
+        }
+        td{
+    border:2px solid #004b49;
+    text-align:center;
+    vertical-align:middle
+        }
+        h1{
+             text-align:center;
+        }
+</style>
 
-<h2>Bill Details</h2>
-<p>Bill Number: @Model.BillId</p>
-<p>Date: @Model.Date</p>
-<p>Customer Name: @Model.CustomerName</p>
-<table>
-    <thead>
+<body>
+    <table align="center">
         <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Total</th>
+            <th colspan="4" text-align="centre">Bill Details</th>
         </tr>
-    </thead>
-    <tbody>
+        <tr>
+            <th colspan="2">Bill Number:@Model.BillId</th>
+            <th colspan="2">Date:@Model.Date</th>
+        </tr>
+        <tr>
+            <th colspan="4">Customer Name:@Model.CustomerName</th>
+        </tr>
+        <tr>
+            <th colspan="1">Product</th>
+            <th colspan="1">Quantity</th>
+            <th colspan="1">Price</th>
+            <th colspan="1">Total</th>
+        </tr>
         @foreach (var purchaseDetail in Model.PurchaseDetails)
         {
             <tr>
-                <td>@purchaseDetail.product.Name</td>
-                <td>@purchaseDetail.Quantity</td>
-                <td>@purchaseDetail.product.Price</td>
-                <td>@(purchaseDetail.Quantity*purchaseDetail.product.Price)</td>
+                <td colspan="1">@purchaseDetail.product.Name</td>
+                <td colspan="1">@purchaseDetail.Quantity</td>
+                <td colspan="1">@purchaseDetail.product.Price</td>
+                <td colspan="1">@(purchaseDetail.Quantity*purchaseDetail.product.Price)</td>
             </tr>
         }
-    </tbody>
-     <tfoot>
         <tr>
-            <td colspan="1"></td>
-            <td><b>Net Total</b>: @Model.NetTotal Rs</td>
+            <th colspan="4">Net Total:@Model.NetTotal Rs</th>
         </tr>
-    </tfoot>
-</table>
-
-
+    </table>
+</body>
 
 

@@ -3,12 +3,11 @@
     public class BillModel
     {
         private readonly ProductPurchaseDbContext _purchaseContext;
-
         public BillModel(ProductPurchaseDbContext purchaseContext)
         {
             _purchaseContext = purchaseContext;
         }
-
+       
         public Bill CreateBill(Customer customer)
         {
             var bill = new Bill
@@ -26,6 +25,19 @@
         public Bill GetBillById(int billId)
         {
             return _purchaseContext.bills.FirstOrDefault(b => b.Id == billId);
+            var bill = GetBillById(billId);
+            if (bill == null)
+            {
+                return null ;
+            }
+            if (billId == 0 || billId != bill.Id)
+            {
+                return null;
+            }
+           
+           
+            
         }
+
     }
 }

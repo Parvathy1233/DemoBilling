@@ -9,4 +9,5 @@
         public double NetTotal { get; set; }
         public List<PurchaseDetail> PurchaseDetails { get; set; }
     }
+    
 }

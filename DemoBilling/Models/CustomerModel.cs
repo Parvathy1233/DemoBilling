@@ -7,7 +7,8 @@ public class CustomerModel
     {
         _purchaseContext = purchaseContext;
     }
-    public Customer GetOrCreateCustomer(string name)
+
+        public Customer GetOrCreateCustomer(string name)
     {
         var customer = _purchaseContext.customers.FirstOrDefault(c => c.Name == name);
 
