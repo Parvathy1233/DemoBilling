@@ -7,12 +7,10 @@
         {
             _purchaseContext = purchaseContext;
         }
-
         public double CalculateProductTotal(Product product, int quantity)
         {
             return (double)(quantity * product.Price);
         }
-
         public void AddPurchaseDetails(Bill bill, int productId, int quantity)
         {
             _purchaseContext.purchaseDetails.Add(new PurchaseDetail
@@ -24,8 +22,8 @@
         }
         public List<PurchaseDetail> GetPurchaseDetailsByBillId(int billId)
         {
-            return _purchaseContext.purchaseDetails.Where(p => p.BillId == billId).ToList();
+            var purchaseDetails= _purchaseContext.purchaseDetails.Where(p => p.BillId == billId).ToList();
+            return purchaseDetails;
         }  
     }
-
 }

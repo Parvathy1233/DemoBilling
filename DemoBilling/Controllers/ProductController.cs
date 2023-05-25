@@ -11,7 +11,6 @@ namespace DemoBilling.Controllers
         private readonly PurchaseModel _purchaseModel;
         private readonly ProductPurchaseDbContext _purchaseContext;
         private readonly ProductModel _productModel;
-
         public ProductController(ProductPurchaseDbContext purchaseDbContext, BillDisplay billDisplay)
         {
             _customerModel = new CustomerModel(purchaseDbContext);
@@ -37,6 +36,7 @@ namespace DemoBilling.Controllers
             {
                 var customer = _customerModel.GetOrCreateCustomer(billDemo.Name);
                 var bill = _billModel.CreateBill(customer);
+
                 for (int i = 0; i < billDemo.ProductIds.Count; i++)
                 {
                     var product = _purchaseContext.Products.FirstOrDefault(p => p.Id == billDemo.ProductIds[i]);

@@ -2,9 +2,8 @@
 
 <form method="post" asp-action="Bill">
     <div asp-validation-summary="All"></div>
-    <h2>Billing Page</h2>
+    <h2 style="color:black">Billing Page</h2>
     <br />
-
     <div>
         <label for="name">Customer Name</label>
         <input type="text" name="name" id="name" required /> 
@@ -29,15 +28,6 @@
     <button type="reset" style="background-color:dimgrey">Clear</button>
     <button type="submit" style="background-color:dimgrey">Submit</button>
 </form>
-<br />
-<form method="get" asp-controller="Product" asp-action="ShowBill">
-    <div>
-        <label for="billId">Bill Number:</label>
-        <input type="number" name="billId" id="billId" required min="1"/>
-    <button type="submit">Show Bill</button>
-    </div>
-</form>
-
 
 @section scripts{
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
@@ -50,7 +40,6 @@
                 addProduct();
             });
         });
-
         function updateTotal() {
             var productId = $('#productId').val();
             var quantity = $('#quantity').val();
@@ -58,7 +47,6 @@
             var total = price * quantity;
             $('#total').text(total);
         }
-
         function addProduct() {
             var productHtml = '<div class="product-item">' +
                 '<label for="productId">Product</label>' +

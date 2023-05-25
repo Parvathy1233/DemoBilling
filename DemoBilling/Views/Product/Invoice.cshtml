@@ -1,9 +1,23 @@
-﻿<form method="get" asp-controller="Product" asp-action="ShowBill">
-    <div>
-        <label for="billId">Bill Number:</label>
-        <input type="number" name="billId" id="billId"  min="1" required/>
-    <button type="submit">Show Bill</button>
+﻿<h2>Bill Details</h2>
+<style>
+    h2{
+        text-align:center;
+        color:black;
+    }
+    form{
+        text-align:center;
+    }
+</style>
+<form method="get" asp-controller="Product" asp-action="ShowBill">
+    <div class="center">
+        <label for="billId">Enter Bill Id:</label>
+        <input type="number" name="billId" id="billId" min="1" required />
+        <button type="submit" style="background-color:dimgrey">Show Bill</button>
     </div>
-
-   
 </form>
+<br />
+<form method="post" asp-controller="Product" asp-action="Index">
+    <div>
+        <button type="submit" style="background-color:dimgrey">Back</button> 
+    </div>
+</form> 
