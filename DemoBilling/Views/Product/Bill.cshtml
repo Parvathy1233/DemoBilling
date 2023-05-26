@@ -6,7 +6,7 @@
     <br />
     <div>
         <label for="name">Customer Name</label>
-        <input type="text" name="name" id="name" required /> 
+        <input type="text" name="name" id="name" required />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <br />
@@ -20,7 +20,8 @@
                 }
             </select>
             <label for="quantity">Quantity</label>
-            <input type="number" name="quantities[]" min="1" required/>
+            <input type="number" name="quantities[]" min="1" required />
+            <button type="button" class="delete-product" style="background-color:dimgrey">Delete</button>
         </div>
         <br />
     </div>
@@ -58,10 +59,14 @@
             </text>
         }
                 productHtml += '</select>' +
-                    '<label for="quantity">Quantity</label>' +'    ' +
-                    '<input type="number" name="quantities[]" class="quantity" min="1" />' +
+                    '<label for="quantity">Quantity</label>' + '    ' +
+                    '<input type="number" name="quantities[]" class="quantity" min="1" required />' +
+                    '<button type="button" class="delete-product" style="background-color:dimgrey">Delete</button>' +
                     '</div>';
             $('#product-details').append(productHtml);
+            $('.delete-product').off('click').on('click', function() {
+                $(this).parent('.product-item').remove();
+            });
         }
     </script>
 }
